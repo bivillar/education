@@ -72,8 +72,8 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response 
 		return s.queryTuna(APIstub, args)
 	} else if function == "initLedger" {
 		return s.initLedger(APIstub)
-	} else if function == "recordTuna" {
-		return s.recordTuna(APIstub, args)
+	} else if function == "recordBottle" {
+		return s.recordBottle(APIstub, args)
 	} else if function == "queryAllTuna" {
 		return s.queryAllTuna(APIstub)
 	} else if function == "changeTunaHolder" {
@@ -181,22 +181,22 @@ func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Respo
 }
 
 /*
- * The recordTuna method *
+ * The recordBottle method *
 Fisherman like Sarah would use to record each of her tuna catches.
 This method takes in five arguments (attributes to be saved in the ledger).
 */
-func (s *SmartContract) recordTuna(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
+func (s *SmartContract) recordBottle(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 
 	if len(args) != 5 {
 		return shim.Error("Incorrect number of arguments. Expecting 5")
 	}
 
-	var tuna = Tuna{Vessel: args[1], Location: args[2], Timestamp: args[3], Holder: args[4]}
+	var bottle = Bottle{Used: args[1], Location: args[2], Timestamp: args[3], Holder: args[4]}
 
-	tunaAsBytes, _ := json.Marshal(tuna)
-	err := APIstub.PutState(args[0], tunaAsBytes)
+	bottleAsBytes, _ := json.Marshal(bottle)
+	err := APIstub.PutState(args[0], bottleAsBytes)
 	if err != nil {
-		return shim.Error(fmt.Sprintf("Failed to record tuna catch: %s", args[0]))
+		return shim.Error(fmt.Sprintf("Failed to record bottle: %s", args[0]))
 	}
 
 	return shim.Success(nil)

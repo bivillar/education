@@ -63,6 +63,7 @@ app.controller("appController", function($scope, appFactory) {
 
   $scope.recordBottle = function() {
     appFactory.recordBottle($scope.bottle, function(data) {
+      console.log("recordBottle-app.js -- ", data);
       $scope.create_bottle = data;
       $("#success_create").show();
     });
@@ -124,7 +125,7 @@ app.factory("appFactory", function($http) {
   };
 
   factory.recordBottle = function(data, callback) {
-    data.location = data.longitude + ", " + data.latitude;
+    data.location = data.longitude;
 
     var bottle =
       data.id +
@@ -135,7 +136,7 @@ app.factory("appFactory", function($http) {
       "-" +
       data.holder +
       "-" +
-      data.Used;
+      data.used;
 
     $http.get("/add_bottle/" + bottle).success(function(output) {
       callback(output);
