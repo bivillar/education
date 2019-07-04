@@ -45,7 +45,7 @@
           <th>Timestamp</th>
           <th>Holder</th>
           <th>Catch Location <br />(Longitude, Latitude)</th>
-          <th>Vessel</th>
+          <th>Is Used</th>
         </tr>
 
         <tr ng-repeat="tuna in all_tuna">
@@ -53,13 +53,13 @@
           <td>{{ tuna.timestamp }}</td>
           <td>{{ tuna.holder }}</td>
           <td>{{ tuna.location }}</td>
-          <td>{{ tuna.vessel }}</td>
+          <td>{{ tuna.isUsed }}</td>
         </tr>
       </table>
 
-      <form onsubmit="queryBottle()">
+      <form ng-submit="queryBottle()">
         <div class="form-group">
-          <label>Query a Specific Tuna Catch</label><br />
+          <label>Query a Specific Bottle</label><br />
           <h5 style="color:red;margin-bottom:2%" id="error_query">
             Error: Please enter a valid Tuna Id
           </h5>
@@ -87,22 +87,22 @@
           <th>Timestamp</th>
           <th>Holder</th>
           <th>Catch Location <br />(Longitude, Latitude)</th>
-          <th>Vessel</th>
+          <th>Is Used</th>
         </tr>
 
         <tr>
           <td>{{ query_bottle.timestamp }}</td>
           <td>{{ query_bottle.holder }}</td>
           <td>{{ query_bottle.location }}</td>
-          <td>{{ query_bottle.vessel }}</td>
+          <td>{{ query_bottle.isUsed }}</td>
         </tr>
       </table>
 
-      <form onsubmit="recordTuna()">
+      <form ng-submit="recordBottle()">
         <div class="form-group">
-          <label>Create Tuna Record</label>
+          <label>Create Bottle Record</label>
           <h5 style="color:green;margin-bottom:2%" id="success_create">
-            Success! Tx ID: {{ create_tuna }}
+            Success! Tx ID: {{ create_bottle }}
           </h5>
           <br />
           Enter catch id:
@@ -110,14 +110,14 @@
             class="form-control"
             type="text"
             placeholder="Ex: 11"
-            ng-model="tuna.id"
+            ng-model="bottle.id"
           />
-          Enter name of vessel:
+          Enter if bottle is used:
           <input
             class="form-control"
             type="text"
-            placeholder="Ex: 0239L"
-            ng-model="tuna.vessel"
+            placeholder="Ex: Yes"
+            ng-model="bottle.isUsed"
           />
           Enter longitude:
           <input
@@ -125,7 +125,7 @@
             class="form-control"
             type="text"
             placeholder="Ex: 28.012"
-            ng-model="tuna.longitude"
+            ng-model="bottle.longitude"
           />
           Enter latitude:
           <input
@@ -133,33 +133,33 @@
             class="form-control"
             type="text"
             placeholder="Ex: 150.405"
-            ng-model="tuna.latitude"
+            ng-model="bottle.latitude"
           />
           Enter timestamp:
           <input
             class="form-control"
             type="text"
             placeholder="Ex: 4982342301"
-            ng-model="tuna.timestamp"
+            ng-model="bottle.timestamp"
           />
           Enter name of holder:
           <input
             class="form-control"
             type="text"
             placeholder="Ex: Hansel"
-            ng-model="tuna.holder"
+            ng-model="bottle.holder"
           />
           <input
             id="createSubmit"
             type="submit"
             value="Create"
             class="btn btn-primary"
-            ng-click="recordTuna()"
+            ng-click="recordBottle()"
           />
         </div>
       </form>
 
-      <form onsubmit="changeHolder()">
+      <form ng-submit="changeHolder()">
         <div class="form-group">
           <label>Change Tuna Holder</label><br />
           <h5 style="color:green;margin-bottom:2%" id="success_holder">

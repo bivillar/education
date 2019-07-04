@@ -66,7 +66,7 @@ Fabric_Client.newDefaultKeyValueStore({ path: store_path })
     // send proposal to endorser
     var request = {
       //targets : --- letting this default to the peers assigned to the channel
-      chaincodeId: "bottle-app",
+      chaincodeId: "tuna-app",
       fcn: "changeTunaHolder",
       args: [key, holder],
       chainId: "mychannel",

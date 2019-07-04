@@ -40,8 +40,8 @@ app.controller("appController", function($scope, appFactory) {
       }
     });
   };
+
   $scope.queryBottle = function() {
-    console.log("hello");
     var id = $scope.bottle_id;
 
     appFactory.queryBottle(id, function(data) {
@@ -59,6 +59,13 @@ app.controller("appController", function($scope, appFactory) {
   $scope.recordTuna = function() {
     appFactory.recordTuna($scope.tuna, function(data) {
       $scope.create_tuna = data;
+      $("#success_create").show();
+    });
+  };
+
+  $scope.recordBottle = function() {
+    appFactory.recordBottle($scope.bottle, function(data) {
+      $scope.create_bottle = data;
       $("#success_create").show();
     });
   };
@@ -94,7 +101,7 @@ app.factory("appFactory", function($http) {
   };
 
   factory.queryBottle = function(id, callback) {
-    $http.get("/get_bottle/" + id).success(function(output) {
+    $http.get("/get_tuna/" + id).success(function(output) {
       callback(output);
     });
   };
@@ -114,6 +121,25 @@ app.factory("appFactory", function($http) {
       data.vessel;
 
     $http.get("/add_tuna/" + tuna).success(function(output) {
+      callback(output);
+    });
+  };
+
+  factory.recordBottle = function(data, callback) {
+    data.location = data.longitude + ", " + data.latitude;
+
+    var bottle =
+      data.id +
+      "-" +
+      data.location +
+      "-" +
+      data.timestamp +
+      "-" +
+      data.holder +
+      "-" +
+      data.isUsed;
+
+    $http.get("/add_bottle/" + bottle).success(function(output) {
       callback(output);
     });
   };
