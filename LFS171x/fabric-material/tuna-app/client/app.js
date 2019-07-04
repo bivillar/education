@@ -100,7 +100,7 @@ app.factory("appFactory", function($http) {
   };
 
   factory.queryBottle = function(id, callback) {
-    $http.get("/get_tuna/" + id).success(function(output) {
+    $http.get("/get_bottle/" + id).success(function(output) {
       callback(output);
     });
   };
