@@ -72,7 +72,7 @@ app.controller("appController", function($scope, appFactory) {
   $scope.changeHolder = function() {
     appFactory.changeHolder($scope.holder, function(data) {
       $scope.change_holder = data;
-      if ($scope.change_holder == "Error: no tuna catch found") {
+      if ($scope.change_holder == "Error: no bottle found") {
         $("#error_holder").show();
         $("#success_holder").hide();
       } else {

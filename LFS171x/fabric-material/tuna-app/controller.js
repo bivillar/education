@@ -683,12 +683,12 @@ module.exports = (function() {
           tx_id = fabric_client.newTransactionID();
           console.log("Assigning transaction_id: ", tx_id._transaction_id);
 
-          // changeTunaHolder - requires 2 args , ex: args: ['1', 'Barry'],
+          // changeBottleHolder - requires 2 args , ex: args: ['1', 'Barry'],
           // send proposal to endorser
           var request = {
             //targets : --- letting this default to the peers assigned to the channel
             chaincodeId: "tuna-app",
-            fcn: "changeTunaHolder",
+            fcn: "changeBottleHolder",
             args: [key, holder],
             chainId: "mychannel",
             txId: tx_id

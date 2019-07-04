@@ -76,8 +76,8 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response 
 		return s.recordBottle(APIstub, args)
 	} else if function == "queryAllBottles" {
 		return s.queryAllBottles(APIstub)
-	} else if function == "changeTunaHolder" {
-		return s.changeTunaHolder(APIstub, args)
+	} else if function == "changeBottleHolder" {
+		return s.changeBottleHolder(APIstub, args)
 	} else if function == "queryBottle" {
 		return s.queryBottle(APIstub, args)
 	}
@@ -121,35 +121,6 @@ func (s *SmartContract) queryBottle(APIstub shim.ChaincodeStubInterface, args []
 	return shim.Success(bottleAsBytes)
 }
 
-/*
- * The initLedger method *
-Will add test data (10 tuna catches)to our network
-*/
-// func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Response {
-// 	tuna := []Tuna{
-// 		Tuna{Vessel: "923F", Location: "67.0006, -70.5476", Timestamp: "1504054225", Holder: "Miriam"},
-// 		Tuna{Vessel: "M83T", Location: "91.2395, -49.4594", Timestamp: "1504057825", Holder: "Dave"},
-// 		Tuna{Vessel: "T012", Location: "58.0148, 59.01391", Timestamp: "1493517025", Holder: "Igor"},
-// 		Tuna{Vessel: "P490", Location: "-45.0945, 0.7949", Timestamp: "1496105425", Holder: "Amalea"},
-// 		Tuna{Vessel: "S439", Location: "-107.6043, 19.5003", Timestamp: "1493512301", Holder: "Rafa"},
-// 		Tuna{Vessel: "J205", Location: "-155.2304, -15.8723", Timestamp: "1494117101", Holder: "Shen"},
-// 		Tuna{Vessel: "S22L", Location: "103.8842, 22.1277", Timestamp: "1496104301", Holder: "Leila"},
-// 		Tuna{Vessel: "EI89", Location: "-132.3207, -34.0983", Timestamp: "1485066691", Holder: "Yuan"},
-// 		Tuna{Vessel: "129R", Location: "153.0054, 12.6429", Timestamp: "1485153091", Holder: "Carlo"},
-// 		Tuna{Vessel: "49W4", Location: "51.9435, 8.2735", Timestamp: "1487745091", Holder: "Fatima"},
-// 	}
-
-// 	i := 0
-// 	for i < len(tuna) {
-// 		fmt.Println("i is ", i)
-// 		tunaAsBytes, _ := json.Marshal(tuna[i])
-// 		APIstub.PutState(strconv.Itoa(i+1), tunaAsBytes)
-// 		fmt.Println("Added", tuna[i])
-// 		i = i + 1
-// 	}
-
-// 	return shim.Success(nil)
-// }
 /*
  * The initLedger method *
 Will add test data (10 bottle catches)to our network
@@ -251,31 +222,31 @@ func (s *SmartContract) queryAllBottles(APIstub shim.ChaincodeStubInterface) sc.
 }
 
 /*
- * The changeTunaHolder method *
+ * The changeBottleHolder method *
 The data in the world state can be updated with who has possession.
 This function takes in 2 arguments, tuna id and new holder name.
 */
-func (s *SmartContract) changeTunaHolder(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
+func (s *SmartContract) changeBottleHolder(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 
 	if len(args) != 2 {
 		return shim.Error("Incorrect number of arguments. Expecting 2")
 	}
 
-	tunaAsBytes, _ := APIstub.GetState(args[0])
-	if tunaAsBytes == nil {
-		return shim.Error("Could not locate tuna")
+	bottleAsBytes, _ := APIstub.GetState(args[0])
+	if bottleAsBytes == nil {
+		return shim.Error("Could not locate bottle")
 	}
-	tuna := Tuna{}
+	bottle := Bottle{}
 
-	json.Unmarshal(tunaAsBytes, &tuna)
-	// Normally check that the specified argument is a valid holder of tuna
+	json.Unmarshal(bottleAsBytes, &bottle)
+	// Normally check that the specified argument is a valid holder of bottle
 	// we are skipping this check for this example
-	tuna.Holder = args[1]
+	bottle.Holder = args[1]
 
-	tunaAsBytes, _ = json.Marshal(tuna)
-	err := APIstub.PutState(args[0], tunaAsBytes)
+	bottleAsBytes, _ = json.Marshal(bottle)
+	err := APIstub.PutState(args[0], bottleAsBytes)
 	if err != nil {
-		return shim.Error(fmt.Sprintf("Failed to change tuna holder: %s", args[0]))
+		return shim.Error(fmt.Sprintf("Failed to change bottle holder: %s", args[0]))
 	}
 
 	return shim.Success(nil)
