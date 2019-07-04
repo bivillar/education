@@ -42,7 +42,7 @@ type Tuna struct {
 Structure tags are used by encoding/json library
 */
 type Bottle struct {
-	Vessel    string `json:"vessel"`
+	Used      string `json:"used"`
 	Timestamp string `json:"timestamp"`
 	Location  string `json:"location"`
 	Holder    string `json:"holder"`
@@ -156,16 +156,16 @@ Will add test data (10 bottle catches)to our network
 */
 func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Response {
 	bottle := []Bottle{
-		Bottle{Vessel: "923F", Location: "67.0006, -70.5476", Timestamp: "1504054225", Holder: "Miriam"},
-		Bottle{Vessel: "M83T", Location: "91.2395, -49.4594", Timestamp: "1504057825", Holder: "Dave"},
-		Bottle{Vessel: "T012", Location: "58.0148, 59.01391", Timestamp: "1493517025", Holder: "Igor"},
-		Bottle{Vessel: "P490", Location: "-45.0945, 0.7949", Timestamp: "1496105425", Holder: "Amalea"},
-		Bottle{Vessel: "S439", Location: "-107.6043, 19.5003", Timestamp: "1493512301", Holder: "Rafa"},
-		Bottle{Vessel: "J205", Location: "-155.2304, -15.8723", Timestamp: "1494117101", Holder: "Shen"},
-		Bottle{Vessel: "S22L", Location: "103.8842, 22.1277", Timestamp: "1496104301", Holder: "Leila"},
-		Bottle{Vessel: "EI89", Location: "-132.3207, -34.0983", Timestamp: "1485066691", Holder: "Yuan"},
-		Bottle{Vessel: "129R", Location: "153.0054, 12.6429", Timestamp: "1485153091", Holder: "Carlo"},
-		Bottle{Vessel: "49W4", Location: "51.9435, 8.2735", Timestamp: "1487745091", Holder: "Fatima"},
+		Bottle{Used: "923F", Location: "67.0006, -70.5476", Timestamp: "1504054225", Holder: "Miriam"},
+		Bottle{Used: "M83T", Location: "91.2395, -49.4594", Timestamp: "1504057825", Holder: "Dave"},
+		Bottle{Used: "T012", Location: "58.0148, 59.01391", Timestamp: "1493517025", Holder: "Igor"},
+		Bottle{Used: "P490", Location: "-45.0945, 0.7949", Timestamp: "1496105425", Holder: "Amalea"},
+		Bottle{Used: "S439", Location: "-107.6043, 19.5003", Timestamp: "1493512301", Holder: "Rafa"},
+		Bottle{Used: "J205", Location: "-155.2304, -15.8723", Timestamp: "1494117101", Holder: "Shen"},
+		Bottle{Used: "S22L", Location: "103.8842, 22.1277", Timestamp: "1496104301", Holder: "Leila"},
+		Bottle{Used: "EI89", Location: "-132.3207, -34.0983", Timestamp: "1485066691", Holder: "Yuan"},
+		Bottle{Used: "129R", Location: "153.0054, 12.6429", Timestamp: "1485153091", Holder: "Carlo"},
+		Bottle{Used: "49W4", Location: "51.9435, 8.2735", Timestamp: "1487745091", Holder: "Fatima"},
 	}
 
 	i := 0

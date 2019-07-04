@@ -298,7 +298,7 @@ module.exports = (function() {
       var key = array[0];
       var timestamp = array[2];
       var location = array[1];
-      var isUsed = array[4];
+      var used = array[4];
       var holder = array[3];
 
       var fabric_client = new Fabric_Client();
@@ -345,13 +345,13 @@ module.exports = (function() {
           tx_id = fabric_client.newTransactionID();
           console.log("Assigning transaction_id: ", tx_id._transaction_id);
 
-          // recordBottle - requires 5 args, ID, isUsed, location, timestamp,holder - ex: args: ['10', 'Hound', '-12.021, 28.012', '1504054225', 'Hansel'],
+          // recordBottle - requires 5 args, ID, used, location, timestamp,holder - ex: args: ['10', 'Hound', '-12.021, 28.012', '1504054225', 'Hansel'],
           // send proposal to endorser
           const request = {
             //targets : --- letting this default to the peers assigned to the channel
             chaincodeId: "tuna-app",
             fcn: "recordBottle",
-            args: [key, isUsed, location, timestamp, holder],
+            args: [key, used, location, timestamp, holder],
             chainId: "mychannel",
             txId: tx_id
           };

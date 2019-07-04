@@ -94,7 +94,7 @@
           <td>{{ query_bottle.timestamp }}</td>
           <td>{{ query_bottle.holder }}</td>
           <td>{{ query_bottle.location }}</td>
-          <td>{{ query_bottle.isUsed }}</td>
+          <td>{{ query_bottle.used }}</td>
         </tr>
       </table>
 
@@ -117,7 +117,7 @@
             class="form-control"
             type="text"
             placeholder="Ex: Yes"
-            ng-model="bottle.isUsed"
+            ng-model="bottle.used"
           />
           Enter longitude:
           <input

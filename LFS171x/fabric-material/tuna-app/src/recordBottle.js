@@ -22,7 +22,7 @@ var array = req.params.bottle.split("-");
 var key = array[0];
 var timestamp = array[2];
 var location = array[1];
-var isUsed = array[4];
+var used = array[4];
 var holder = array[3];
 
 var fabric_client = new Fabric_Client();
@@ -66,13 +66,13 @@ Fabric_Client.newDefaultKeyValueStore({ path: store_path })
     tx_id = fabric_client.newTransactionID();
     console.log("Assigning transaction_id: ", tx_id._transaction_id);
 
-    // recordbottle - requires 5 args, ID, isUsed, location, timestamp,holder - ex: args: ['10', 'Hound', '-12.021, 28.012', '1504054225', 'Hansel'],
+    // recordbottle - requires 5 args, ID, used, location, timestamp,holder - ex: args: ['10', 'Hound', '-12.021, 28.012', '1504054225', 'Hansel'],
     // send proposal to endorser
     const request = {
       //targets : --- letting this default to the peers assigned to the channel
       chaincodeId: "bottle-app",
       fcn: "recordBottle",
-      args: [key, isUsed, location, timestamp, holder],
+      args: [key, used, location, timestamp, holder],
       chainId: "mychannel",
       txId: tx_id
     };

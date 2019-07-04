@@ -33,7 +33,6 @@ app.controller("appController", function($scope, appFactory) {
       $scope.query_tuna = data;
 
       if ($scope.query_tuna == "Could not locate tuna") {
-        console.log();
         $("#error_query").show();
       } else {
         $("#error_query").hide();
@@ -46,9 +45,8 @@ app.controller("appController", function($scope, appFactory) {
 
     appFactory.queryBottle(id, function(data) {
       $scope.query_bottle = data;
-
+      console.log(data);
       if ($scope.query_bottle == "Could not locate bottle") {
-        console.log();
         $("#error_query").show();
       } else {
         $("#error_query").hide();
@@ -137,7 +135,7 @@ app.factory("appFactory", function($http) {
       "-" +
       data.holder +
       "-" +
-      data.isUsed;
+      data.Used;
 
     $http.get("/add_bottle/" + bottle).success(function(output) {
       callback(output);
