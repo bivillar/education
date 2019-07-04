@@ -15,8 +15,8 @@ module.exports = function(app) {
   app.get("/add_bottle/:bottle", function(req, res) {
     bottle.add_bottle(req, res);
   });
-  app.get("/get_all_tuna", function(req, res) {
-    bottle.get_all_tuna(req, res);
+  app.get("/get_all_bottles", function(req, res) {
+    bottle.get_all_bottles(req, res);
   });
   app.get("/change_holder/:holder", function(req, res) {
     bottle.change_holder(req, res);

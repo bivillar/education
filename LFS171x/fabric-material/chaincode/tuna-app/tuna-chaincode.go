@@ -74,8 +74,8 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response 
 		return s.initLedger(APIstub)
 	} else if function == "recordBottle" {
 		return s.recordBottle(APIstub, args)
-	} else if function == "queryAllTuna" {
-		return s.queryAllTuna(APIstub)
+	} else if function == "queryAllBottles" {
+		return s.queryAllBottles(APIstub)
 	} else if function == "changeTunaHolder" {
 		return s.changeTunaHolder(APIstub, args)
 	} else if function == "queryBottle" {
@@ -203,11 +203,11 @@ func (s *SmartContract) recordBottle(APIstub shim.ChaincodeStubInterface, args [
 }
 
 /*
- * The queryAllTuna method *
+ * The queryAllBottles method *
 allows for assessing all the records added to the ledger(all tuna catches)
 This method does not take any arguments. Returns JSON string containing results.
 */
-func (s *SmartContract) queryAllTuna(APIstub shim.ChaincodeStubInterface) sc.Response {
+func (s *SmartContract) queryAllBottles(APIstub shim.ChaincodeStubInterface) sc.Response {
 
 	startKey := "0"
 	endKey := "999"
@@ -245,7 +245,7 @@ func (s *SmartContract) queryAllTuna(APIstub shim.ChaincodeStubInterface) sc.Res
 	}
 	buffer.WriteString("]")
 
-	fmt.Printf("- queryAllTuna:\n%s\n", buffer.String())
+	fmt.Printf("- queryAllBottles:\n%s\n", buffer.String())
 
 	return shim.Success(buffer.Bytes())
 }

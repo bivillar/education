@@ -11,8 +11,8 @@ app.controller("appController", function($scope, appFactory) {
   $("#error_holder").hide();
   $("#error_query").hide();
 
-  $scope.queryAllTuna = function() {
-    appFactory.queryAllTuna(function(data) {
+  $scope.queryAllBottles = function() {
+    appFactory.queryAllBottles(function(data) {
       var array = [];
       for (var i = 0; i < data.length; i++) {
         parseInt(data[i].Key);
@@ -22,7 +22,7 @@ app.controller("appController", function($scope, appFactory) {
       array.sort(function(a, b) {
         return parseFloat(a.Key) - parseFloat(b.Key);
       });
-      $scope.all_tuna = array;
+      $scope.all_bottles = array;
     });
   };
 
@@ -87,8 +87,8 @@ app.controller("appController", function($scope, appFactory) {
 app.factory("appFactory", function($http) {
   var factory = {};
 
-  factory.queryAllTuna = function(callback) {
-    $http.get("/get_all_tuna/").success(function(output) {
+  factory.queryAllBottles = function(callback) {
+    $http.get("/get_all_bottles/").success(function(output) {
       callback(output);
     });
   };

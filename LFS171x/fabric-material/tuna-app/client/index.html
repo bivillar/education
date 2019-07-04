@@ -30,16 +30,16 @@
         <label>Query All Tuna Catches</label>
         <p>
           <input
-            id="queryAllTuna"
+            id="queryAllBottle"
             type="submit"
             value="Query"
             class="btn btn-primary"
-            ng-click="queryAllTuna()"
+            ng-click="queryAllBottles()"
           />
         </p>
       </div>
 
-      <table id="all_tuna" class="table" align="center">
+      <table id="all_bottles" class="table" align="center">
         <tr>
           <th>ID</th>
           <th>Timestamp</th>
@@ -48,12 +48,12 @@
           <th>Is Used</th>
         </tr>
 
-        <tr ng-repeat="tuna in all_tuna">
-          <td>{{ tuna.Key }}</td>
-          <td>{{ tuna.timestamp }}</td>
-          <td>{{ tuna.holder }}</td>
-          <td>{{ tuna.location }}</td>
-          <td>{{ tuna.isUsed }}</td>
+        <tr ng-repeat="bottle in all_bottles">
+          <td>{{ bottle.Key }}</td>
+          <td>{{ bottle.timestamp }}</td>
+          <td>{{ bottle.holder }}</td>
+          <td>{{ bottle.location }}</td>
+          <td>{{ bottle.used }}</td>
         </tr>
       </table>
 
