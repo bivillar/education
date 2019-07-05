@@ -198,10 +198,13 @@ module.exports = (function() {
             var sendPromise = channel.sendTransaction(request);
             promises.push(sendPromise); //we want the send transaction first, so that we know where to check status
 
+            let event_hub = channel.newChannelEventHub("localhost:7051");
+            // event_hub.setPeerAddr('grpc://localhost:7053');
+
             // get an eventhub once the fabric client has a user assigned. The user
             // is required bacause the event registration must be signed
-            let event_hub = fabric_client.newEventHub();
-            event_hub.setPeerAddr("grpc://localhost:7053");
+            // let event_hub = fabric_client.newEventHub();
+            // event_hub.setPeerAddr("grpc://localhost:7053");
 
             // using resolve the promise so that result status may be processed
             // under the then clause rather than having the clause process
@@ -234,7 +237,7 @@ module.exports = (function() {
                   } else {
                     console.log(
                       "The transaction has been committed on peer " +
-                        event_hub._ep._endpoint.addr
+                        event_hub.getPeerAddr()
                     );
                     resolve(return_status);
                   }
@@ -286,8 +289,8 @@ module.exports = (function() {
           }
         })
         .catch(err => {
-          console.error("Failed to invoke successfully :: " + err);
-          res.send(tx_id.getTransactionID());
+          // console.error("Failed to invoke successfully :: " + err);
+          // res.send(tx_id.getTransactionID());
         });
     },
     add_bottle: function(req, res) {
@@ -401,8 +404,11 @@ module.exports = (function() {
 
             // get an eventhub once the fabric client has a user assigned. The user
             // is required bacause the event registration must be signed
-            let event_hub = fabric_client.newEventHub();
-            event_hub.setPeerAddr("grpc://localhost:7053");
+
+            let event_hub = channel.newChannelEventHub("localhost:7051");
+            // event_hub.setPeerAddr('grpc://localhost:7053');
+            // let event_hub = fabric_client.newEventHub();
+            // event_hub.setPeerAddr("grpc://localhost:7053");
 
             // using resolve the promise so that result status may be processed
             // under the then clause rather than having the clause process
@@ -435,7 +441,7 @@ module.exports = (function() {
                   } else {
                     console.log(
                       "The transaction has been committed on peer " +
-                        event_hub._ep._endpoint.addr
+                        event_hub.getPeerAddr()
                     );
                     resolve(return_status);
                   }
@@ -487,8 +493,8 @@ module.exports = (function() {
           }
         })
         .catch(err => {
-          console.error("Failed to invoke successfully :: " + err);
-          res.send(tx_id.getTransactionID());
+          // console.error("Failed to invoke successfully :: " + err);
+          // res.send(tx_id.getTransactionID());
         });
     },
     get_tuna: function(req, res) {
@@ -741,8 +747,10 @@ module.exports = (function() {
 
             // get an eventhub once the fabric client has a user assigned. The user
             // is required bacause the event registration must be signed
-            let event_hub = fabric_client.newEventHub();
-            event_hub.setPeerAddr("grpc://localhost:7053");
+            let event_hub = channel.newChannelEventHub("localhost:7051");
+            // event_hub.setPeerAddr('grpc://localhost:7053');
+            // let event_hub = fabric_client.newEventHub();
+            // event_hub.setPeerAddr("grpc://localhost:7053");
 
             // using resolve the promise so that result status may be processed
             // under the then clause rather than having the clause process
@@ -775,7 +783,7 @@ module.exports = (function() {
                   } else {
                     console.log(
                       "The transaction has been committed on peer " +
-                        event_hub._ep._endpoint.addr
+                        event_hub.getPeerAddr()
                     );
                     resolve(return_status);
                   }
@@ -827,8 +835,8 @@ module.exports = (function() {
           }
         })
         .catch(err => {
-          console.error("Failed to invoke successfully :: " + err);
-          res.json(tx_id.getTransactionID());
+          // console.error("Failed to invoke successfully :: " + err);
+          // res.json(tx_id.getTransactionID());
         });
     },
     change_used: function(req, res) {
@@ -935,8 +943,12 @@ module.exports = (function() {
 
             // get an eventhub once the fabric client has a user assigned. The user
             // is required bacause the event registration must be signed
-            let event_hub = fabric_client.newEventHub();
-            event_hub.setPeerAddr("grpc://localhost:7053");
+
+            let event_hub = channel.newChannelEventHub("localhost:7051");
+            // event_hub.setPeerAddr('grpc://localhost:7053');
+
+            // let event_hub = fabric_client.newEventHub();
+            // event_hub.setPeerAddr("grpc://localhost:7053");
 
             // using resolve the promise so that result status may be processed
             // under the then clause rather than having the clause process
@@ -969,7 +981,7 @@ module.exports = (function() {
                   } else {
                     console.log(
                       "The transaction has been committed on peer " +
-                        event_hub._ep._endpoint.addr
+                        event_hub.getPeerAddr()
                     );
                     resolve(return_status);
                   }
@@ -1021,8 +1033,8 @@ module.exports = (function() {
           }
         })
         .catch(err => {
-          console.error("Failed to invoke successfully :: " + err);
-          res.json(tx_id.getTransactionID());
+          //console.error("Failed to invoke successfully :: " + err);
+          //res.json(tx_id.getTransactionID());
         });
     }
   };

@@ -6,18 +6,30 @@ var app = angular.module("application", []);
 
 // Angular Controller
 app.controller("appController", function($scope, appFactory) {
+  //Sucesses
   $("#success_holder").hide();
   $("#success_create").hide();
+  $("#success_used").hide();
+
+  //Erros
   $("#error_holder").hide();
   $("#error_query").hide();
+  $("#error_used").hide();
+  $("#error_create").hide();
+
+  // Loadings
+  $("#holder_Loading").hide();
+  $("#add_Loading").hide();
+  $("#used_Loading").hide();
+
   $scope.allLoaded = false;
   $scope.singleLoaded = false;
-  $scope.added = false;
   $scope.changed = false;
   $scope.used = false;
   $scope.bottleChanged = {};
   $scope.bottleAdded = {};
   $scope.bottleUsed = {};
+  $scope.holderLoading = false;
 
   $scope.bottle = { used: "Sim" };
 
@@ -71,44 +83,52 @@ app.controller("appController", function($scope, appFactory) {
 
   $scope.recordBottle = function() {
     $scope.idForm.$setUntouched();
-    $scope.added = true;
     $scope.bottleAdded = $scope.bottle;
     $scope.bottle = {};
     $scope.bottle.used = "Sim";
 
+    $("#add_Loading").show();
+    $("#success_create").hide();
     appFactory.recordBottle($scope.bottleAdded, function(data) {
       $scope.create_bottle = data;
       $("#success_create").show();
+      $("#add_Loading").hide();
     });
   };
 
   $scope.changeUsed = function() {
     $scope.usedForm.$setUntouched();
-    $scope.used = true;
     $scope.bottleUsed = $scope.bottle;
     $scope.bottle = {};
     $scope.bottle.used = "Sim";
+    $("#error_used").hide();
+    $("#success_used").hide();
+    $("#used_Loading").show();
 
     appFactory.changeUsed($scope.bottleUsed, function(data) {
       $scope.change_user = data;
+      $("#used_Loading").hide();
       if ($scope.change_user == "Error: no bottle found") {
-        $("#error_holder").show();
-        $("#success_holder").hide();
+        $("#error_used").show();
+        $("#success_used").hide();
       } else {
-        $("#success_holder").show();
-        $("#error_holder").hide();
+        $("#success_used").show();
+        $("#error_used").hide();
       }
     });
   };
 
   $scope.changeHolder = function() {
     $scope.holderForm.$setUntouched();
-    $scope.changed = true;
     $scope.bottleChanged = $scope.holder;
     $scope.holder = {};
+    $("#holder_Loading").show();
+    $("#success_holder").hide();
+    $("#error_holder").hide();
 
     appFactory.changeHolder($scope.bottleChanged, function(data) {
       $scope.change_holder = data;
+      $("#holder_Loading").hide();
       if ($scope.change_holder == "Error: no bottle found") {
         $("#error_holder").show();
         $("#success_holder").hide();

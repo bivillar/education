@@ -85,7 +85,7 @@
 
 
           <input id="createName" class="form-control" type="text" placeholder="Ex: 3" ng-model="bottle_id" required />
-          <button type="submit" class="btn btn-outline-info ml-3">
+          <button type="submit" class="btn btn-outline-info">
             Show
           </button>
 
@@ -135,14 +135,20 @@
           Enter Holder ID:
           <input class="form-control" type="text" placeholder="Ex: 12312312323" ng-model="bottle.holder" required />
 
-          <button type="submit" class="btn btn-outline-info ml-3">
+          <button type="submit" class="btn btn-outline-info">
             Create
           </button>
         </div>
-        <div class="alert alert-success mt-3" role="alert" ng-if="added">
-          Bottle ID {{bottleAdded.id}} Added! <br />
+        <div class="spinner-border" role="status" id="add_Loading">
+            <span class="sr-only">Loading...</span>
+          </div>
+        <div class="alert alert-success mt-3" role="alert" id="success_create">
+          Bottle ID #{{bottleAdded.id}} Added! <br />
           Transaction Id: {{create_bottle}}
         </div>
+        <div class="alert alert-danger mt-3" role="alert" id="error_create">
+            Transaction fail
+          </div>
       </form>
     </div>
     <div class="inputContainer">
@@ -155,14 +161,20 @@
           <input class="form-control" name="assetSelect" placeholder="Ex: 1231231231" ng-model="holder.name" required />
           Enter new Holder Type:
           <input class="form-control" name="assetSelect" placeholder="Ex: Consumidor" ng-model="holder.type" required />
-          <button type="submit" class="btn btn-outline-info ml-3">
+          <button type="submit" class="btn btn-outline-info">
             Change
           </button>
         </div>
-        <div class="alert alert-success mt-3" role="alert" ng-if="changed">
-          Bottle ID {{bottleChanged.id}} Holder changed to {{bottleChanged.name}} <br />
+        <div class="spinner-border" role="status" id="holder_Loading">
+            <span class="sr-only">Loading...</span>
+          </div>
+        <div class="alert alert-success mt-3" role="alert" id="success_holder">
+          Bottle ID #{{bottleChanged.id}} Holder changed to "{{bottleChanged.name}}" <br />
           Transaction Id: {{change_holder}}
         </div>
+        <div class="alert alert-danger mt-3" role="alert" id="error_holder">
+            Transaction fail
+          </div>
       </form>
     </div>
     <form ng-submit="changeUsed()" class="pb-3" name="usedForm">
@@ -179,15 +191,21 @@
 
         <!-- <input class="form-control" name="assetSelect" placeholder="Ex: Não" ng-model="bottle.used" required /> -->
 
-        <button type="submit" class="btn btn-outline-info ml-3">
+        <button type="submit" class="btn btn-outline-info">
           Change
         </button>
 
       </div>
-      <div class="alert alert-success mt-3" role="alert" ng-if="used">
-        Bottle ID {{bottleUsed.id}} Used changed to {{bottleUsed.used}} <br />
+      <div class="spinner-border" role="status" id="used_Loading">
+          <span class="sr-only">Loading...</span>
+        </div>
+      <div class="alert alert-success mt-3" role="alert" id="success_used">
+        Bottle ID #{{bottleUsed.id}} Used changed to "{{bottleUsed.used}}" <br />
         Transaction Id: {{change_user}}
       </div>
+      <div class="alert alert-danger mt-3" role="alert" id="error_used">
+          Transaction fail
+        </div>
     </form>
 </body>
 <!-- requiring the angular page -->

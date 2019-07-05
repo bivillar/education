@@ -41,4 +41,5 @@ node registerAdmin.js
 printf "\nREGISTER USER\n\n"
 node registerUser.js
 printf "\nSTARTING SERVER\n\n"
+afplay /System/Library/Sounds/Glass.aiff
 node server.js
