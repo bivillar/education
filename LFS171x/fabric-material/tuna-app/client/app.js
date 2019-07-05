@@ -10,34 +10,35 @@ app.controller("appController", function($scope, appFactory) {
   $("#success_create").hide();
   $("#error_holder").hide();
   $("#error_query").hide();
+  $scope.allLoaded = false;
+  $scope.singleLoaded = false;
+  $scope.added = false;
+  $scope.changed = false;
+  $scope.bottleChanged = {};
+  $scope.bottleAdded = {};
+
+  $scope.allBottlesButton = "Show";
 
   $scope.queryAllBottles = function() {
-    appFactory.queryAllBottles(function(data) {
-      var array = [];
-      for (var i = 0; i < data.length; i++) {
-        parseInt(data[i].Key);
-        data[i].Record.Key = parseInt(data[i].Key);
-        array.push(data[i].Record);
-      }
-      array.sort(function(a, b) {
-        return parseFloat(a.Key) - parseFloat(b.Key);
+    if ($scope.allLoaded) {
+      $scope.allLoaded = false;
+      $scope.allBottlesButton = "Show";
+    } else {
+      appFactory.queryAllBottles(function(data) {
+        var array = [];
+        for (var i = 0; i < data.length; i++) {
+          parseInt(data[i].Key);
+          data[i].Record.Key = parseInt(data[i].Key);
+          array.push(data[i].Record);
+        }
+        array.sort(function(a, b) {
+          return parseFloat(a.Key) - parseFloat(b.Key);
+        });
+        $scope.all_bottles = array;
+        $scope.allLoaded = true;
+        $scope.allBottlesButton = "Hide";
       });
-      $scope.all_bottles = array;
-    });
-  };
-
-  $scope.queryTuna = function() {
-    var id = $scope.tuna_id;
-
-    appFactory.queryTuna(id, function(data) {
-      $scope.query_tuna = data;
-
-      if ($scope.query_tuna == "Could not locate tuna") {
-        $("#error_query").show();
-      } else {
-        $("#error_query").hide();
-      }
-    });
+    }
   };
 
   $scope.queryBottle = function() {
@@ -45,6 +46,7 @@ app.controller("appController", function($scope, appFactory) {
 
     appFactory.queryBottle(id, function(data) {
       $scope.query_bottle = data;
+      $scope.singleLoaded = true;
       console.log(data);
       if ($scope.query_bottle == "Could not locate bottle") {
         $("#error_query").show();
@@ -62,7 +64,12 @@ app.controller("appController", function($scope, appFactory) {
   };
 
   $scope.recordBottle = function() {
-    appFactory.recordBottle($scope.bottle, function(data) {
+    $scope.idForm.$setUntouched();
+    $scope.added = true;
+    $scope.bottleAdded = $scope.bottle;
+    $scope.bottle = {};
+
+    appFactory.recordBottle($scope.bottleAdded, function(data) {
       console.log("recordBottle-app.js -- ", data);
       $scope.create_bottle = data;
       $("#success_create").show();
@@ -70,7 +77,12 @@ app.controller("appController", function($scope, appFactory) {
   };
 
   $scope.changeHolder = function() {
-    appFactory.changeHolder($scope.holder, function(data) {
+    $scope.holderForm.$setUntouched();
+    $scope.changed = true;
+    $scope.bottleChanged = $scope.holder;
+    $scope.holder = {};
+
+    appFactory.changeHolder($scope.bottleChanged, function(data) {
       $scope.change_holder = data;
       if ($scope.change_holder == "Error: no bottle found") {
         $("#error_holder").show();

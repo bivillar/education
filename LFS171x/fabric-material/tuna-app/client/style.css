@@ -3,6 +3,32 @@ header {
   font-size: 20px;
   padding: 15px;
 }
+
+.pl-15 {
+  padding-left: 10% !important;
+}
+
+.inputContainer {
+  border-bottom: 1px solid rgb(224, 224, 224);
+  width: 100%;
+  margin-bottom: 3rem;
+}
+
+.bg-gradient {
+  background-image: linear-gradient(
+    to bottom right,
+    MediumPurple,
+    DeepSkyBlue,
+    Aqua
+  );
+}
+
+.big-container {
+  align-content: center !important;
+  box-shadow: 0px 0px 30px #19a2b8;
+  background-color: white !important;
+}
+
 header,
 .form-group {
   margin-bottom: 3%;

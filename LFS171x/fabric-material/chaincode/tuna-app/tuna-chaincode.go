@@ -68,9 +68,7 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response 
 	// Retrieve the requested Smart Contract function and arguments
 	function, args := APIstub.GetFunctionAndParameters()
 	// Route to the appropriate handler function to interact with the ledger
-	if function == "queryTuna" {
-		return s.queryTuna(APIstub, args)
-	} else if function == "initLedger" {
+	if function == "initLedger" {
 		return s.initLedger(APIstub)
 	} else if function == "recordBottle" {
 		return s.recordBottle(APIstub, args)
