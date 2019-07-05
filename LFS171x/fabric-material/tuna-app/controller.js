@@ -287,6 +287,7 @@ module.exports = (function() {
         })
         .catch(err => {
           console.error("Failed to invoke successfully :: " + err);
+          res.send(tx_id.getTransactionID());
         });
     },
     add_bottle: function(req, res) {
@@ -487,6 +488,7 @@ module.exports = (function() {
         })
         .catch(err => {
           console.error("Failed to invoke successfully :: " + err);
+          res.send(tx_id.getTransactionID());
         });
     },
     get_tuna: function(req, res) {
@@ -826,7 +828,7 @@ module.exports = (function() {
         })
         .catch(err => {
           console.error("Failed to invoke successfully :: " + err);
-          res.send("Error: no bottle found");
+          res.json(tx_id.getTransactionID());
         });
     },
     change_used: function(req, res) {
@@ -1020,7 +1022,7 @@ module.exports = (function() {
         })
         .catch(err => {
           console.error("Failed to invoke successfully :: " + err);
-          res.send("Error: no bottle found");
+          res.json(tx_id.getTransactionID());
         });
     }
   };

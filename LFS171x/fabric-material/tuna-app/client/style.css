@@ -40,6 +40,10 @@ header,
 .form-group {
   width: 50%;
 }
+
+.alert {
+  width: 80% !important;
+}
 #body {
   margin-left: 3%;
   margin-right: 3%;
@@ -62,16 +66,5 @@ header,
   display: inline-block;
 }
 table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-td,
-th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-tr:nth-child(even) {
-  background-color: #dddddd;
+  width: 80% !important;
 }

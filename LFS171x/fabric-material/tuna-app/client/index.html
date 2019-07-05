@@ -138,9 +138,10 @@
           <button type="submit" class="btn btn-outline-info ml-3">
             Create
           </button>
-          <div class="alert alert-success mt-3" role="alert" ng-if="added">
-            Bottle ID {{bottleAdded.id}} Added!
-          </div>
+        </div>
+        <div class="alert alert-success mt-3" role="alert" ng-if="added">
+          Bottle ID {{bottleAdded.id}} Added! <br />
+          Transaction Id: {{create_bottle}}
         </div>
       </form>
     </div>
@@ -157,9 +158,10 @@
           <button type="submit" class="btn btn-outline-info ml-3">
             Change
           </button>
-          <div class="alert alert-success mt-3" role="alert" ng-if="changed">
-            Bottle ID {{bottleChanged.id}} Holder changed to {{bottleChanged.name}}
-          </div>
+        </div>
+        <div class="alert alert-success mt-3" role="alert" ng-if="changed">
+          Bottle ID {{bottleChanged.id}} Holder changed to {{bottleChanged.name}} <br />
+          Transaction Id: {{change_holder}}
         </div>
       </form>
     </div>
@@ -180,9 +182,11 @@
         <button type="submit" class="btn btn-outline-info ml-3">
           Change
         </button>
-        <div class="alert alert-success mt-3" role="alert" ng-if="used">
-          Bottle ID {{bottleUsed.id}} Used changed to {{bottleUsed.used}}
-        </div>
+
+      </div>
+      <div class="alert alert-success mt-3" role="alert" ng-if="used">
+        Bottle ID {{bottleUsed.id}} Used changed to {{bottleUsed.used}} <br />
+        Transaction Id: {{change_user}}
       </div>
     </form>
 </body>

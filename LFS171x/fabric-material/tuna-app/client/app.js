@@ -77,7 +77,6 @@ app.controller("appController", function($scope, appFactory) {
     $scope.bottle.used = "Sim";
 
     appFactory.recordBottle($scope.bottleAdded, function(data) {
-      console.log("recordBottle-app.js -- ", data);
       $scope.create_bottle = data;
       $("#success_create").show();
     });
