@@ -20,8 +20,8 @@ console.log("submit recording of a bottle: ");
 var array = req.params.bottle.split("-");
 
 var key = array[0];
-var timestamp = array[2];
-var location = array[1];
+var holdertype = array[2];
+var date = array[1];
 var used = array[4];
 var holder = array[3];
 
@@ -45,7 +45,7 @@ Fabric_Client.newDefaultKeyValueStore({ path: store_path })
     // assign the store to the fabric client
     fabric_client.setStateStore(state_store);
     var crypto_suite = Fabric_Client.newCryptoSuite();
-    // use the same location for the state store (where the users' certificate are kept)
+    // use the same date for the state store (where the users' certificate are kept)
     // and the crypto store (where the users' keys are kept)
     var crypto_store = Fabric_Client.newCryptoKeyStore({ path: store_path });
     crypto_suite.setCryptoKeyStore(crypto_store);
@@ -66,13 +66,13 @@ Fabric_Client.newDefaultKeyValueStore({ path: store_path })
     tx_id = fabric_client.newTransactionID();
     console.log("Assigning transaction_id: ", tx_id._transaction_id);
 
-    // recordbottle - requires 5 args, ID, used, location, timestamp,holder - ex: args: ['10', 'Hound', '-12.021, 28.012', '1504054225', 'Hansel'],
+    // recordbottle - requires 5 args, ID, used, date, holdertype,holder - ex: args: ['10', 'Hound', '-12.021, 28.012', '1504054225', 'Hansel'],
     // send proposal to endorser
     const request = {
       //targets : --- letting this default to the peers assigned to the channel
       chaincodeId: "bottle-app",
       fcn: "recordBottle",
-      args: [key, used, location, timestamp, holder],
+      args: [key, used, date, holdertype, holder],
       chainId: "mychannel",
       txId: tx_id
     };

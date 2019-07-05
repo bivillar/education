@@ -2,115 +2,94 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Hyperledger Fabric Tuna Application</title>
-    <link rel="icon" href="favicon.png" type="image/gif" />
 
-    <!-- require jquery and bootstrap scripts -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-      crossorigin="anonymous"
-    ></script>
+<head>
+  <title>BlockBottle</title>
+  <link rel="icon" href="blockbottle.png" type="image/gif" />
 
-    <!-- <link
+  <!-- require jquery and bootstrap scripts -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+  <!-- <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     /> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css" />
-  </head>
-  <body ng-app="application" ng-controller="appController">
-    <nav class="navbar navbar-dark bg-gradient">
-      <a class="pl-15 navbar-brand" href="#">BlockBottle</a>
-    </nav>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
 
-    <div align="center" class="big-container container">
-      <div class="jumbotron jumbotron-fluid">
-        <div>
-          <h1 class="display-4">BlockBottle</h1>
-          <p class="lead">
-            A Blockchain traceable bottle. Made with Hiperledger Fabric.
-          </p>
-        </div>
+<body ng-app="application" ng-controller="appController">
+  <nav class="navbar navbar-dark bg-gradient">
+    <a class="pl-15 navbar-brand" href="#">BlockBottle</a>
+  </nav>
+
+  <div align="center" class="big-container container">
+    <div class="jumbotron jumbotron-fluid">
+      <div>
+        <h1 class="display-4">BlockBottle</h1>
+        <p class="lead">
+          A Blockchain traceable bottle. Made with Hiperledger Fabric.
+        </p>
       </div>
-      <div class="inputContainer">
-        <div class="form-group ">
-          <span class="h2"> Show All Bottles </span>
+    </div>
+    <div class="inputContainer">
+      <div class="form-group ">
+        <span class="h2"> Show All Bottles </span>
 
-          <button
-            type="submit"
-            class="btn btn-outline-info ml-3"
-            ng-click="queryAllBottles()"
-          >
-            {{ allBottlesButton }}
-          </button>
-        </div>
-
-        <table id="all_bottles" class="table " align="center" ng-if="allLoaded">
-          <thead>
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Timestamp</th>
-              <th scope="col">Holder</th>
-              <th scope="col">Location</th>
-              <th scope="col">Is Used</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="bottle in all_bottles">
-              <td scope="row">{{ bottle.Key }}</td>
-              <td>{{ bottle.timestamp }}</td>
-              <td>{{ bottle.holder }}</td>
-              <td>{{ bottle.location }}</td>
-              <td>{{ bottle.used }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <button type="submit" class="btn btn-outline-info ml-3" ng-click="queryAllBottles()">
+          {{ allBottlesButton }}
+        </button>
       </div>
-      <div class="inputContainer">
-        
+
+      <table id="all_bottles" class="table " align="center" ng-if="allLoaded">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Holdertype</th>
+            <th scope="col">Holder ID</th>
+            <th scope="col">Timestamp</th>
+            <th scope="col">Is Used</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="bottle in all_bottles">
+            <td scope="row">{{ bottle.Key }}</td>
+            <td>{{ bottle.holdertype }}</td>
+            <td>{{ bottle.holder }}</td>
+            <td>{{ bottle.date }}</td>
+            <td>{{ bottle.used }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="inputContainer">
+
       <form ng-submit="queryBottle()">
         <div class="form-group">
           <label class="h2">Show bottle by ID</label><br />
-          <h5 style="color:red;margin-bottom:2%" id="error_query" >
+          <h5 style="color:red;margin-bottom:2%" id="error_query">
             Error: Please enter a valid BottleId
           </h5>
 
 
-          <input
-            id="createName"
-            class="form-control"
-            type="text"
-            placeholder="Ex: 3"
-            ng-model="bottle_id"
-            required/>
-          <button
-          type="submit"
-          class="btn btn-outline-info ml-3"
-        >
-          Show
-        </button>
+          <input id="createName" class="form-control" type="text" placeholder="Ex: 3" ng-model="bottle_id" required />
+          <button type="submit" class="btn btn-outline-info ml-3">
+            Show
+          </button>
 
-        <!-- <span ng-if="singleLoaded" >
+          <!-- <span ng-if="singleLoaded" >
           <button type="button" class="close" aria-label="Close" ng-click="!singleLoaded">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -121,16 +100,16 @@
 
       <table id="query_bottle" class="table" align="center" ng-if="singleLoaded">
         <tr>
+          <th>Holdertype</th>
+          <th>Holder ID</th>
           <th>Timestamp</th>
-          <th>Holder</th>
-          <th>Catch Location <br />(Longitude, Latitude)</th>
           <th>Is Used</th>
         </tr>
 
         <tr>
-          <td>{{ query_bottle.timestamp }}</td>
+          <td>{{ query_bottle.holdertype }}</td>
           <td>{{ query_bottle.holder }}</td>
-          <td>{{ query_bottle.location }}</td>
+          <td>{{ query_bottle.date }}</td>
           <td>{{ query_bottle.used }}</td>
         </tr>
       </table>
@@ -138,97 +117,76 @@
     <div class="inputContainer">
       <form ng-submit="recordBottle()" name="idForm">
         <div class="form-group">
-          <label class="h2">Create Bottle Record</label>
-          <h5 style="color:green;margin-bottom:2%" id="success_create">
-            Success! Tx ID: {{ create_bottle }}
-          </h5>
+          <label class="h2">Add Bottle</label>
           <br />
-          Enter catch id:
-          <input
-            class="form-control"
-            type="text"
-            placeholder="Ex: 11"
-            ng-model="bottle.id"
-            required/>
+          Enter bottle id:
+          <input class="form-control" type="text" placeholder="Ex: 11" ng-model="bottle.id" required />
           Enter if bottle is used:
-          <input
-            class="form-control"
-            type="text"
-            placeholder="Ex: Yes"
-            ng-model="bottle.used"
-            required/>
-          Enter longitude:
-          <input
-            id="createName"
-            class="form-control"
-            type="text"
-            placeholder="Ex: 28.012"
-            ng-model="bottle.longitude"
-            required/>
-          Enter latitude:
-          <input
-            id="createName"
-            class="form-control"
-            type="text"
-            placeholder="Ex: 150.405"
-            ng-model="bottle.latitude"
-            required/>
-          Enter timestamp:
-          <input
-            class="form-control"
-            type="text"
-            placeholder="Ex: 4982342301"
-            ng-model="bottle.timestamp"
-            required/>
-          Enter name of holder:
-          <input
-            class="form-control"
-            type="text"
-            placeholder="Ex: Hansel"
-            ng-model="bottle.holder"
-            required/>
+          <select class="form-control" id="exampleFormControlSelect1" ng-model="bottle.used" required>
+            <option>Sim</option>
+            <option>Não</option>
+          </select>
+          <!-- <input class="form-control" type="text" placeholder="Ex: Sim" ng-model="bottle.used" required /> -->
+          Enter Timestamp
+          <input id="createName" class="form-control" type="text" placeholder="Ex: 15091995" ng-model="bottle.date"
+            required />
+          Enter Holdertype:
+          <input class="form-control" type="text" placeholder="Ex: Consumidor" ng-model="bottle.holdertype" required />
+          Enter Holder ID:
+          <input class="form-control" type="text" placeholder="Ex: 12312312323" ng-model="bottle.holder" required />
 
-          <button
-          type="submit"
-          class="btn btn-outline-info ml-3"
-        >
-          Create
-        </button>
-        <div class="alert alert-success mt-3" role="alert" ng-if="added">
+          <button type="submit" class="btn btn-outline-info ml-3">
+            Create
+          </button>
+          <div class="alert alert-success mt-3" role="alert" ng-if="added">
             Bottle ID {{bottleAdded.id}} Added!
           </div>
         </div>
       </form>
     </div>
+    <div class="inputContainer">
       <form ng-submit="changeHolder()" class="pb-3" name="holderForm">
         <div class="form-group">
-          <label class="h2">Change Tuna Holder</label><br />
-          Enter a bottle id between 1 and 10:
-          <input
-            class="form-control"
-            name="assetSelect"
-            placeholder="Ex: 1"
-            ng-model="holder.id"
-            required/>
-          Enter name of new holder:
-          <input
-            class="form-control"
-            name="assetSelect"
-            placeholder="Ex: Barry"
-            ng-model="holder.name"
-            required/>
-          <button
-          type="submit"
-          class="btn btn-outline-info ml-3"
-          >
+          <label class="h2">Change Bottle Holder</label><br />
+          Enter a bottle ID:
+          <input class="form-control" name="assetSelect" placeholder="Ex: 1" ng-model="holder.id" required />
+          Enter new Holder ID:
+          <input class="form-control" name="assetSelect" placeholder="Ex: 1231231231" ng-model="holder.name" required />
+          Enter new Holder Type:
+          <input class="form-control" name="assetSelect" placeholder="Ex: Consumidor" ng-model="holder.type" required />
+          <button type="submit" class="btn btn-outline-info ml-3">
             Change
           </button>
           <div class="alert alert-success mt-3" role="alert" ng-if="changed">
-              Bottle ID {{bottleChanged.id}} Holder changed to {{bottleChanged.name}}
-            </div>
+            Bottle ID {{bottleChanged.id}} Holder changed to {{bottleChanged.name}}
+          </div>
         </div>
       </form>
-  </body>
-  <!-- requiring the angular page -->
-  <script type="text/javascript" src="app.js"></script>
+    </div>
+    <form ng-submit="changeUsed()" class="pb-3" name="usedForm">
+      <div class="form-group">
+        <label class="h2">Change if bottle was used</label><br />
+        Enter a bottle id:
+        <input class="form-control" name="assetSelect" placeholder="Ex: 1" ng-model="bottle.id" required />
+        Is this bottle used?
+
+        <select class="form-control" id="exampleFormControlSelect1" ng-model="bottle.used">
+          <option>Sim</option>
+          <option>Não</option>
+        </select>
+
+        <!-- <input class="form-control" name="assetSelect" placeholder="Ex: Não" ng-model="bottle.used" required /> -->
+
+        <button type="submit" class="btn btn-outline-info ml-3">
+          Change
+        </button>
+        <div class="alert alert-success mt-3" role="alert" ng-if="used">
+          Bottle ID {{bottleUsed.id}} Used changed to {{bottleUsed.used}}
+        </div>
+      </div>
+    </form>
+</body>
+<!-- requiring the angular page -->
+<script type="text/javascript" src="app.js"></script>
+
 </html>

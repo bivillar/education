@@ -21,4 +21,7 @@ module.exports = function(app) {
   app.get("/change_holder/:holder", function(req, res) {
     bottle.change_holder(req, res);
   });
+  app.get("/change_used/:used", function(req, res) {
+    bottle.change_used(req, res);
+  });
 };

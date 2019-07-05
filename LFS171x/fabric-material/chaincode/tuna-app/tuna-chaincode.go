@@ -34,7 +34,7 @@ Structure tags are used by encoding/json library
 type Tuna struct {
 	Vessel    string `json:"vessel"`
 	Timestamp string `json:"timestamp"`
-	Location  string `json:"location"`
+	location  string `json:"location"`
 	Holder    string `json:"holder"`
 }
 
@@ -42,10 +42,10 @@ type Tuna struct {
 Structure tags are used by encoding/json library
 */
 type Bottle struct {
-	Used      string `json:"used"`
-	Timestamp string `json:"timestamp"`
-	Location  string `json:"location"`
-	Holder    string `json:"holder"`
+	Used       string `json:"used"`
+	Date       string `json:"date"`
+	Holder     string `json:"holder"`
+	Holdertype string `json:"holdertype"`
 }
 
 /*
@@ -78,6 +78,8 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response 
 		return s.changeBottleHolder(APIstub, args)
 	} else if function == "queryBottle" {
 		return s.queryBottle(APIstub, args)
+	} else if function == "changeBottleUsed" {
+		return s.changeBottleUsed(APIstub, args)
 	}
 
 	return shim.Error("Invalid Smart Contract function name.")
@@ -125,16 +127,16 @@ Will add test data (10 bottle catches)to our network
 */
 func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Response {
 	bottle := []Bottle{
-		Bottle{Used: "923F", Location: "67.0006, -70.5476", Timestamp: "1504054225", Holder: "Miriam"},
-		Bottle{Used: "M83T", Location: "91.2395, -49.4594", Timestamp: "1504057825", Holder: "Dave"},
-		Bottle{Used: "T012", Location: "58.0148, 59.01391", Timestamp: "1493517025", Holder: "Igor"},
-		Bottle{Used: "P490", Location: "-45.0945, 0.7949", Timestamp: "1496105425", Holder: "Amalea"},
-		Bottle{Used: "S439", Location: "-107.6043, 19.5003", Timestamp: "1493512301", Holder: "Rafa"},
-		Bottle{Used: "J205", Location: "-155.2304, -15.8723", Timestamp: "1494117101", Holder: "Shen"},
-		Bottle{Used: "S22L", Location: "103.8842, 22.1277", Timestamp: "1496104301", Holder: "Leila"},
-		Bottle{Used: "EI89", Location: "-132.3207, -34.0983", Timestamp: "1485066691", Holder: "Yuan"},
-		Bottle{Used: "129R", Location: "153.0054, 12.6429", Timestamp: "1485153091", Holder: "Carlo"},
-		Bottle{Used: "49W4", Location: "51.9435, 8.2735", Timestamp: "1487745091", Holder: "Fatima"},
+		Bottle{Used: "Sim", Date: "10102018", Holdertype: "Consumidor", Holder: "14890991077"},
+		Bottle{Used: "Não", Date: "14012018", Holdertype: "Fábrica", Holder: "76445977006"},
+		Bottle{Used: "Sim", Date: "02112018", Holdertype: "Coleta", Holder: "08852952004"},
+		Bottle{Used: "Sim", Date: "27122018", Holdertype: "Consumidor", Holder: "76684899081"},
+		Bottle{Used: "Não", Date: "09082018", Holdertype: "Estabelecimento", Holder: "19300558030"},
+		Bottle{Used: "Não", Date: "30092018", Holdertype: "Fábrica", Holder: "50450805042"},
+		Bottle{Used: "Sim", Date: "10102018", Holdertype: "Consumidor", Holder: "40690551002"},
+		Bottle{Used: "Não", Date: "26102018", Holdertype: "Estabelecimento", Holder: "02443785092"},
+		Bottle{Used: "Sim", Date: "22052019", Holdertype: "Coleta", Holder: "40540879061"},
+		Bottle{Used: "Não", Date: "10042019", Holdertype: "Fábrica", Holder: "21178679012"},
 	}
 
 	i := 0
@@ -160,7 +162,7 @@ func (s *SmartContract) recordBottle(APIstub shim.ChaincodeStubInterface, args [
 		return shim.Error("Incorrect number of arguments. Expecting 5")
 	}
 
-	var bottle = Bottle{Used: args[1], Location: args[2], Timestamp: args[3], Holder: args[4]}
+	var bottle = Bottle{Used: args[1], Date: args[2], Holdertype: args[3], Holder: args[4]}
 
 	bottleAsBytes, _ := json.Marshal(bottle)
 	err := APIstub.PutState(args[0], bottleAsBytes)
@@ -225,7 +227,38 @@ The data in the world state can be updated with who has possession.
 This function takes in 2 arguments, tuna id and new holder name.
 */
 func (s *SmartContract) changeBottleHolder(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
+	fmt.Printf("Chegou aqui")
+	if len(args) != 3 {
+		return shim.Error("Incorrect number of arguments. Expecting 3")
+	}
 
+	bottleAsBytes, _ := APIstub.GetState(args[0])
+	if bottleAsBytes == nil {
+		return shim.Error("Could not locate bottle")
+	}
+	bottle := Bottle{}
+
+	json.Unmarshal(bottleAsBytes, &bottle)
+	// Normally check that the specified argument is a valid holder of bottle
+	// we are skipping this check for this example
+	bottle.Holder = args[1]
+	bottle.Holdertype = args[2]
+
+	bottleAsBytes, _ = json.Marshal(bottle)
+	err := APIstub.PutState(args[0], bottleAsBytes)
+	if err != nil {
+		return shim.Error(fmt.Sprintf("Failed to change bottle holder: %s", args[0]))
+	}
+
+	return shim.Success(nil)
+}
+
+/*
+ * The changeBottleUsed method *
+The data in the world state can be updated with who has possession.
+This function takes in 2 arguments, tuna id and new holder name.
+*/
+func (s *SmartContract) changeBottleUsed(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 	if len(args) != 2 {
 		return shim.Error("Incorrect number of arguments. Expecting 2")
 	}
@@ -239,12 +272,12 @@ func (s *SmartContract) changeBottleHolder(APIstub shim.ChaincodeStubInterface, 
 	json.Unmarshal(bottleAsBytes, &bottle)
 	// Normally check that the specified argument is a valid holder of bottle
 	// we are skipping this check for this example
-	bottle.Holder = args[1]
+	bottle.Used = args[1]
 
 	bottleAsBytes, _ = json.Marshal(bottle)
 	err := APIstub.PutState(args[0], bottleAsBytes)
 	if err != nil {
-		return shim.Error(fmt.Sprintf("Failed to change bottle holder: %s", args[0]))
+		return shim.Error(fmt.Sprintf("Failed to change bottle used: %s", args[0]))
 	}
 
 	return shim.Success(nil)

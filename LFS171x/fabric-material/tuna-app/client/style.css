@@ -4,6 +4,10 @@ header {
   padding: 15px;
 }
 
+body {
+  background-color: rgb(237, 253, 255);
+}
+
 .pl-15 {
   padding-left: 10% !important;
 }

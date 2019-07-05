@@ -14,8 +14,14 @@ app.controller("appController", function($scope, appFactory) {
   $scope.singleLoaded = false;
   $scope.added = false;
   $scope.changed = false;
+  $scope.used = false;
   $scope.bottleChanged = {};
   $scope.bottleAdded = {};
+  $scope.bottleUsed = {};
+
+  $scope.bottle = { used: "Sim" };
+
+  $scope.items = ["Sim", "Não"];
 
   $scope.allBottlesButton = "Show";
 
@@ -68,11 +74,31 @@ app.controller("appController", function($scope, appFactory) {
     $scope.added = true;
     $scope.bottleAdded = $scope.bottle;
     $scope.bottle = {};
+    $scope.bottle.used = "Sim";
 
     appFactory.recordBottle($scope.bottleAdded, function(data) {
       console.log("recordBottle-app.js -- ", data);
       $scope.create_bottle = data;
       $("#success_create").show();
+    });
+  };
+
+  $scope.changeUsed = function() {
+    $scope.usedForm.$setUntouched();
+    $scope.used = true;
+    $scope.bottleUsed = $scope.bottle;
+    $scope.bottle = {};
+    $scope.bottle.used = "Sim";
+
+    appFactory.changeUsed($scope.bottleUsed, function(data) {
+      $scope.change_user = data;
+      if ($scope.change_user == "Error: no bottle found") {
+        $("#error_holder").show();
+        $("#success_holder").hide();
+      } else {
+        $("#success_holder").show();
+        $("#error_holder").hide();
+      }
     });
   };
 
@@ -118,14 +144,12 @@ app.factory("appFactory", function($http) {
   };
 
   factory.recordTuna = function(data, callback) {
-    data.location = data.longitude + ", " + data.latitude;
-
     var tuna =
       data.id +
       "-" +
-      data.location +
+      data.date +
       "-" +
-      data.timestamp +
+      data.holdertype +
       "-" +
       data.holder +
       "-" +
@@ -137,14 +161,12 @@ app.factory("appFactory", function($http) {
   };
 
   factory.recordBottle = function(data, callback) {
-    data.location = data.longitude;
-
     var bottle =
       data.id +
       "-" +
-      data.location +
+      data.date +
       "-" +
-      data.timestamp +
+      data.holdertype +
       "-" +
       data.holder +
       "-" +
@@ -156,9 +178,17 @@ app.factory("appFactory", function($http) {
   };
 
   factory.changeHolder = function(data, callback) {
-    var holder = data.id + "-" + data.name;
+    var holder = data.id + "-" + data.name + "-" + data.type;
 
     $http.get("/change_holder/" + holder).success(function(output) {
+      callback(output);
+    });
+  };
+
+  factory.changeUsed = function(data, callback) {
+    var used = data.id + "-" + data.used;
+
+    $http.get("/change_used/" + used).success(function(output) {
       callback(output);
     });
   };
