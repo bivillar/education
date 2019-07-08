@@ -17,6 +17,11 @@ Para a execução do projeto, é necessário ter instalado em sua máquina:
 
 Para que o programa funcione de forma correta, o node precisa estar na versão 8. Caso tenha instalado outra versão, recomendo a utilização do [NVM](https://www.sitepoint.com/quick-tip-multiple-versions-node-nvm/).
 
+Entrar na pasta bottle app e rodar
+```
+npm install
+```
+
 ## Rodando
 
 Entre na pasta bottle-app e rode o comando
