@@ -19,7 +19,7 @@ Para que o programa funcione de forma correta, o node precisa estar na versão 8
 
 ## Rodando
 
-Entre na pasta tuna-app e rode o comando
+Entre na pasta bottle-app e rode o comando
 ```
 ./startFabric.sh
 ```
