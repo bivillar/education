@@ -1,25 +1,29 @@
 "use strict";
 /*
- * SPDX-License-Identifier: Apache-2.0
- */
-/*
+* SPDX-License-Identifier: Apache-2.0
+
  * Chaincode Invoke
  
 This code is based on code written by the Hyperledger Fabric community.
-  Original code can be found here: https://github.com/hyperledger/fabric-samples/blob/release/fabcar/invoke.js
-
- */
+Original code can be found here: https://github.com/hyperledger/fabric-samples/blob/release/fabcar/invoke.js
+*/
 
 var Fabric_Client = require("fabric-client");
 var path = require("path");
 var util = require("util");
 var os = require("os");
 
-console.log("changing holder of tuna catch: ");
+var fabric_client = new Fabric_Client();
 
-var array = req.params.holder.split("-");
+console.log("submit recording of a tuna catch: ");
+
+var array = req.params.tuna.split("-");
+
 var key = array[0];
-var holder = array[1];
+var timestamp = array[2];
+var location = array[1];
+var vessel = array[4];
+var holder = array[3];
 
 var fabric_client = new Fabric_Client();
 
@@ -62,13 +66,13 @@ Fabric_Client.newDefaultKeyValueStore({ path: store_path })
     tx_id = fabric_client.newTransactionID();
     console.log("Assigning transaction_id: ", tx_id._transaction_id);
 
-    // changeBottleHolder - requires 2 args , ex: args: ['1', 'Barry'],
+    // recordTuna - requires 5 args, ID, vessel, location, timestamp,holder - ex: args: ['10', 'Hound', '-12.021, 28.012', '1504054225', 'Hansel'],
     // send proposal to endorser
-    var request = {
+    const request = {
       //targets : --- letting this default to the peers assigned to the channel
-      chaincodeId: "tuna-app",
-      fcn: "changeBottleHolder",
-      args: [key, holder],
+      chaincodeId: "bottle-app",
+      fcn: "recordTuna",
+      args: [key, vessel, location, timestamp, holder],
       chainId: "mychannel",
       txId: tx_id
     };
@@ -178,7 +182,7 @@ Fabric_Client.newDefaultKeyValueStore({ path: store_path })
     // check the results in the order the promises were added to the promise all list
     if (results && results[0] && results[0].status === "SUCCESS") {
       console.log("Successfully sent transaction to the orderer.");
-      res.json(tx_id.getTransactionID());
+      res.send(tx_id.getTransactionID());
     } else {
       console.error(
         "Failed to order the transaction. Error code: " + response.status
@@ -189,7 +193,7 @@ Fabric_Client.newDefaultKeyValueStore({ path: store_path })
       console.log(
         "Successfully committed the change to the ledger by the peer"
       );
-      res.json(tx_id.getTransactionID());
+      res.send(tx_id.getTransactionID());
     } else {
       console.log(
         "Transaction failed to be committed to the ledger due to ::" +

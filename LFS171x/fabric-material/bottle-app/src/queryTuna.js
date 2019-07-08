@@ -2,7 +2,7 @@
 /*
 * SPDX-License-Identifier: Apache-2.0
 
-Hyperledger Fabric Sample Query Program for tuna-app: Chaincode Invoke 
+Hyperledger Fabric Sample Query Program for bottle-app: Chaincode Invoke 
 
 This code is based on code written by the Hyperledger Fabric community.
 Original code can be found here: https://github.com/hyperledger/fabric-samples/blob/release/fabcar/query.js
@@ -53,7 +53,7 @@ Fabric_Client.newDefaultKeyValueStore({ path: store_path })
 
     // queryTuna - requires 1 argument, ex: args: ['4'],
     const request = {
-      chaincodeId: "tuna-app",
+      chaincodeId: "bottle-app",
       txId: tx_id,
       fcn: "queryTuna",
       args: [key]

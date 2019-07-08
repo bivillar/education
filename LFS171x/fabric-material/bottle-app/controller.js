@@ -62,7 +62,7 @@ module.exports = (function() {
 
           // queryAllTuna - requires no arguments , ex: args: [''],
           const request = {
-            chaincodeId: "tuna-app",
+            chaincodeId: "bottle-app",
             txId: tx_id,
             fcn: "queryAllBottles",
             args: [""]
@@ -149,7 +149,7 @@ module.exports = (function() {
           // send proposal to endorser
           const request = {
             //targets : --- letting this default to the peers assigned to the channel
-            chaincodeId: "tuna-app",
+            chaincodeId: "bottle-app",
             fcn: "recordTuna",
             args: [key, vessel, date, holdertype, holder],
             chainId: "mychannel",
@@ -353,7 +353,7 @@ module.exports = (function() {
           // send proposal to endorser
           const request = {
             //targets : --- letting this default to the peers assigned to the channel
-            chaincodeId: "tuna-app",
+            chaincodeId: "bottle-app",
             fcn: "recordBottle",
             args: [key, used, date, holdertype, holder],
             chainId: "mychannel",
@@ -539,7 +539,7 @@ module.exports = (function() {
 
           // queryTuna - requires 1 argument, ex: args: ['4'],
           const request = {
-            chaincodeId: "tuna-app",
+            chaincodeId: "bottle-app",
             txId: tx_id,
             fcn: "queryTuna",
             args: [key]
@@ -611,7 +611,7 @@ module.exports = (function() {
 
           // queryBottle - requires 1 argument, ex: args: ['4'],
           const request = {
-            chaincodeId: "tuna-app",
+            chaincodeId: "bottle-app",
             txId: tx_id,
             fcn: "queryBottle",
             args: [key]
@@ -697,7 +697,7 @@ module.exports = (function() {
           // send proposal to endorser
           var request = {
             //targets : --- letting this default to the peers assigned to the channel
-            chaincodeId: "tuna-app",
+            chaincodeId: "bottle-app",
             fcn: "changeBottleHolder",
             args: [key, holder, holdertype],
             chainId: "mychannel",
@@ -893,7 +893,7 @@ module.exports = (function() {
           // send proposal to endorser
           var request = {
             //targets : --- letting this default to the peers assigned to the channel
-            chaincodeId: "tuna-app",
+            chaincodeId: "bottle-app",
             fcn: "changeBottleUsed",
             args: [key, used],
             chainId: "mychannel",

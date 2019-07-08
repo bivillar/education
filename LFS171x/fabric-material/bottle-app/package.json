@@ -1,5 +1,5 @@
 {
-    "name": "Fabric-tuna-app",
+    "name": "Fabric-bottle-app",
     "version": "1.0.0",
     "description": "Hyperledger Fabric MOOC Sample Application",
     "main": "server.js",

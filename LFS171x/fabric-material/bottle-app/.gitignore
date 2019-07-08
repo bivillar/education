@@ -10,4 +10,4 @@
 .project
 
 # fabric sdk node modules
-tuna-app/node_modules/
+bottle-app/node_modules/
